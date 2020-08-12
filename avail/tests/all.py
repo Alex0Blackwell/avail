@@ -1,12 +1,12 @@
-"""Sherlock Tests
+"""avail Tests
 
 This module contains various tests.
 """
-from tests.base import SherlockBaseTest
+from tests.base import availBaseTest
 import unittest
 
 
-class SherlockDetectTests(SherlockBaseTest):
+class availDetectTests(availBaseTest):
     def test_detect_true_via_message(self):
         """Test Username Does Exist (Via Message).
 
@@ -170,7 +170,7 @@ class SherlockDetectTests(SherlockBaseTest):
         return
 
 
-class SherlockSiteCoverageTests(SherlockBaseTest):
+class availSiteCoverageTests(availBaseTest):
     def test_coverage_false_via_response_url(self):
         """Test Username Does Not Exist Site Coverage (Via Response URL).
 

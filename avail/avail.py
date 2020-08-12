@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 
 """
-Sherlock: Find Usernames Across Social Networks Module
+avail: Find Usernames Across Social Networks Module
 
 This module contains the main logic to search for usernames at social
 networks.
@@ -24,12 +24,12 @@ from result import QueryResult
 from notify import QueryNotifyPrint
 from sites  import SitesInformation
 
-module_name = "Sherlock: Find Usernames Across Social Networks"
+module_name = "avail: Find Usernames Across Social Networks"
 __version__ = "0.12.5"
 
 
 
-class SherlockFuturesSession(FuturesSession):
+class availFuturesSession(FuturesSession):
     def request(self, method, url, hooks={}, *args, **kwargs):
         """Request URL.
 
@@ -87,7 +87,7 @@ class SherlockFuturesSession(FuturesSession):
             #No response hook was already defined, so install it ourselves.
             hooks['response'] = [response_time]
 
-        return super(SherlockFuturesSession, self).request(method,
+        return super(availFuturesSession, self).request(method,
                                                            url,
                                                            hooks=hooks,
                                                            *args, **kwargs)
@@ -124,10 +124,10 @@ def get_response(request_future, error_type, social_network):
     return response, error_context, expection_text
 
 
-def sherlock(username, site_data, query_notify,
+def avail(username, site_data, query_notify,
              tor=False, unique_tor=False,
              proxy=None, timeout=None):
-    """Run Sherlock Analysis.
+    """Run avail Analysis.
 
     Checks for existence of username on various social media sites.
 
@@ -179,7 +179,7 @@ def sherlock(username, site_data, query_notify,
         max_workers=len(site_data)
 
     #Create multi-threaded session for all requests.
-    session = SherlockFuturesSession(max_workers=max_workers,
+    session = availFuturesSession(max_workers=max_workers,
                                      session=underlying_session)
 
 
@@ -493,21 +493,6 @@ def main():
 
     args = parser.parse_args()
 
-    # Check for newer version of Sherlock. If it exists, let the user know about it
-
-    try:
-        r = requests.get("https://raw.githubusercontent.com/sherlock-project/sherlock/master/sherlock/sherlock.py")
-
-        remote_version = str(re.findall('__version__ = "(.*)"', r.text)[0])
-        local_version = __version__
-
-        if remote_version != local_version:
-            print("Update Available!\n" +
-                  f"You are running version {local_version}. Version {remote_version} is available at https://git.io/sherlock")
-
-    except Exception as error:
-        print(f"A problem occured while checking for an update: {error}")
-
 
     # Argument check
     # TODO regex check on args.proxy
@@ -550,7 +535,7 @@ def main():
     if args.site_list is None:
         # User must enter a site to search
         print("You must specify what website you want to search for with this username.")
-        print("\nusage: [--site],\n\tex. python3 sherlock username --site instagram")
+        print("\nusage: [--site],\n\tex. python3 avail username --site instagram")
         sys.exit(1)
     else:
         # User desires to selectively run queries on a sub-set of the site list.
@@ -581,7 +566,7 @@ def main():
     for username in args.username:
         print()
 
-        results = sherlock(username,
+        results = avail(username,
                            site_data,
                            query_notify,
                            tor=args.tor,
