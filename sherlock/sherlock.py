@@ -161,7 +161,7 @@ def sherlock(username, site_data, query_notify,
     #Notify caller that we are starting the query.
     query_notify.start(username)
 
-    # Create session based on request methodology
+    #Create session based on request methodology
     if tor or unique_tor:
         #Requests using Tor obfuscation
         underlying_request = TorRequest()
@@ -232,7 +232,7 @@ def sherlock(username, site_data, query_notify,
                 # from where the user profile normally can be found.
                 url_probe = url_probe.format(username)
 
-            if (net_info["errorType"] == 'status_code' and 
+            if (net_info["errorType"] == 'status_code' and
                 net_info.get("request_head_only", True) == True):
                 #In most cases when we are detecting by status code,
                 #it is not necessary to get the entire body:  we can
@@ -454,7 +454,7 @@ def main():
                         action="store_true",  dest="csv", default=False,
                         help="Create Comma-Separated Values (CSV) File."
                         )
-    parser.add_argument("--site",
+    parser.add_argument("--site", "-s",
                         action="append", metavar='SITE_NAME',
                         dest="site_list", default=None,
                         help="Limit analysis to just the listed sites. Add multiple options to specify more than one site."
@@ -504,7 +504,7 @@ def main():
         if remote_version != local_version:
             print("Update Available!\n" +
                   f"You are running version {local_version}. Version {remote_version} is available at https://git.io/sherlock")
-    
+
     except Exception as error:
         print(f"A problem occured while checking for an update: {error}")
 
@@ -548,8 +548,10 @@ def main():
         site_data_all[site.name] = site.information
 
     if args.site_list is None:
-        # Not desired to look at a sub-set of sites
-        site_data = site_data_all
+        # User must enter a site to search
+        print("You must specify what website you want to search for with this username.")
+        print("\nusage: [--site],\n\tex. python3 sherlock username --site instagram")
+        sys.exit(1)
     else:
         # User desires to selectively run queries on a sub-set of the site list.
 

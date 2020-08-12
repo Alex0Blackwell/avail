@@ -189,32 +189,32 @@ class QueryNotifyPrint(QueryNotify):
         if result.status == QueryStatus.CLAIMED:
             if self.color:
                 print((Style.BRIGHT + Fore.WHITE + "[" +
-                       Fore.GREEN + "+" +
+                       Fore.RED + "-" +
                        Fore.WHITE + "]" +
                        response_time_text +
-                       Fore.GREEN +
+                       Fore.BLUE +
                        f" {self.result.site_name}: " +
                        Style.RESET_ALL +
-                       f"{self.result.site_url_user}"))
+                       "username unavailable."))
             else:
-                print(f"[+]{response_time_text} {self.result.site_name}: {self.result.site_url_user}")
+                print(f"[+]{response_time_text} {self.result.site_name}: username unavailable.")
         elif result.status == QueryStatus.AVAILABLE:
             if not self.print_found_only:
                 if self.color:
                     print((Style.BRIGHT + Fore.WHITE + "[" +
-                           Fore.RED + "-" +
+                           Fore.GREEN + "+" +
                            Fore.WHITE + "]" +
                            response_time_text +
-                           Fore.GREEN + f" {self.result.site_name}:" +
-                           Fore.YELLOW + " Not Found!"))
+                           Fore.BLUE + f" {self.result.site_name}:" +
+                           Fore.GREEN + " username available!"))
                 else:
-                    print(f"[-]{response_time_text} {self.result.site_name}: Not Found!")
+                    print(f"[-]{response_time_text} {self.result.site_name}: username available!")
         elif result.status == QueryStatus.UNKNOWN:
             if self.color:
                 print(Style.BRIGHT + Fore.WHITE + "[" +
                       Fore.RED + "-" +
                       Fore.WHITE + "]" +
-                      Fore.GREEN + f" {self.result.site_name}:" +
+                      Fore.BLUE + f" {self.result.site_name}:" +
                       Fore.RED + f" {self.result.context}" +
                       Fore.YELLOW + f" ")
             else:
@@ -226,7 +226,7 @@ class QueryNotifyPrint(QueryNotify):
                     print((Style.BRIGHT + Fore.WHITE + "[" +
                            Fore.RED + "-" +
                            Fore.WHITE + "]" +
-                           Fore.GREEN + f" {self.result.site_name}:" +
+                           Fore.BLUE + f" {self.result.site_name}:" +
                            Fore.YELLOW + f" {msg}"))
                 else:
                     print(f"[-] {self.result.site_name} {msg}")
