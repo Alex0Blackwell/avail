@@ -1,36 +1,40 @@
 <p align=center>
-
-  <img src="https://user-images.githubusercontent.com/27065646/53551960-ae4dff80-3b3a-11e9-9075-cef786c69364.png"/>
-
-  <br>
-  <span>Hunt down social media accounts by username across <a href="https://github.com/theyahya/sherlock/blob/master/sites.md">social networks</a></span>
+  <span>Check if your username is available across <a href="https://github.com/theyahya/sherlock/blob/master/sites.md">social networks</a>!</span>
   <br>
   <a target="_blank" href="https://www.python.org/downloads/" title="Python version"><img src="https://img.shields.io/badge/python-%3E=_3.6-green.svg"></a>
-  <a target="_blank" href="LICENSE" title="License: MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg"></a>
+  <a target="_blank" href="LICENSE" title="License: GPL-3.0"><img src="https://img.shields.io/badge/license-GPL--3.0-blue"></a>
   <a target="_blank" href="https://github.com/sherlock-project/sherlock/actions" title="Test Status"><img src="https://github.com/sherlock-project/sherlock/workflows/Tests/badge.svg?branch=master"></a>
-  <a target="_blank" href="https://github.com/sherlock-project/sherlock/actions" title="Nightly Tests"><img src="https://github.com/sherlock-project/sherlock/workflows/Nightly/badge.svg?branch=master"></a>
-  <a target="_blank" href="https://twitter.com/intent/tweet?text=%F0%9F%94%8E%20Find%20usernames%20across%20social%20networks%20&url=https://github.com/sherlock-project/sherlock&hashtags=hacking,%20osint,%20bugbounty,%20reconnaissance" title="Share on Twitter"><img src="https://img.shields.io/twitter/url/http/shields.io.svg?style=social"></a>
-  <a target="_blank" href="http://sherlock-project.github.io/"><img alt="Website" src="https://img.shields.io/website-up-down-green-red/http/sherlock-project.github.io/..svg"></a>
   <a target="_blank" href="https://microbadger.com/images/theyahya/sherlock"><img alt="docker image" src="https://images.microbadger.com/badges/version/theyahya/sherlock.svg"></a>
 </p>
 
-<p align="center">
-  <a href="#demo">Demo</a>
-  &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#installation">Installation</a>
-  &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#usage">Usage</a>
-  &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#docker-notes">Docker Notes</a>
-  &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#adding-new-sites">Adding New Sites</a>
-</p>
+## Table of contents
+* [Overview](#overview)
+* [Examples](#examples)
+* [Technologies](#technologies)
+* [Installation](#installation)
+* [Usage](#usage)
+* [Limitations](#limitations)
+
+
+## Overview
+Finding a good username is important for an online presence. However, it is often a lot of work to know if the username you want is available. Getting a few the *That username is already taken* prompts, is enough for anyone to just add a ton of numbers after their name. **Avail** automates this process, providing a response to whether a username is available in just a few seconds!
+
+## Examples
 
 <p align="center">
-<a href="https://asciinema.org/a/223115">
-<img src="./images/sherlock_demo.gif"/>
+
+<a href="https://github.com/Alex0Blackwell/avail">
+<img src="./images/avail-demo.gif"/>
 </a>
 </p>
+
+## Technologies
+
+- **Python 3.6**
+- **beautifulsoup4**
+- **requests**
+- **pysocks**
+- **colorama**
 
 
 ## Installation
@@ -39,10 +43,10 @@
 
 ```bash
 # clone the repo
-$ git clone https://github.com/sherlock-project/sherlock.git
+$ git clone https://github.com/Alex0Blackwell/avail.git
 
 # change the working directory to sherlock
-$ cd sherlock
+$ cd avail
 
 # install python3 and python3-pip if they are not installed
 
@@ -50,18 +54,16 @@ $ cd sherlock
 $ python3 -m pip install -r requirements.txt
 ```
 
-[![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.png)](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/sherlock-project/sherlock&tutorial=README.md)
-
 ## Usage
 
 ```bash
-$ python3 sherlock --help
-usage: sherlock [-h] [--version] [--verbose] [--folderoutput FOLDEROUTPUT] [--output OUTPUT]
+$ python3 avail --help
+usage: avail [-h] [--version] [--verbose] [--folderoutput FOLDEROUTPUT] [--output OUTPUT]
                 [--tor] [--unique-tor] [--csv] [--site SITE_NAME] [--proxy PROXY_URL]
                 [--json JSON_FILE] [--timeout TIMEOUT] [--print-found] [--no-color] [--browse]
                 USERNAMES [USERNAMES ...]
 
-Sherlock: Find Usernames Across Social Networks (Version 0.12.3)
+avail: Find Usernames Across Social Networks (Version 0.12.3)
 
 positional arguments:
   USERNAMES             One or more usernames to check with social networks.
@@ -96,14 +98,14 @@ optional arguments:
   --browse, -b          Browse to all results on default browser.
 ```
 
-To search for only one user:
+To search for only one user on a website:
 ```
-python3 sherlock user123
+python3 avail user123 -s website
 ```
 
-To search for more than one user:
+To search for more than one user on a website:
 ```
-python3 sherlock user1 user2 user3
+python3 avail user1 user2 user3 -s website
 ```
 
 Accounts found will be stored in an individual text file with the corresponding username (e.g ```user123.txt```).
@@ -114,56 +116,11 @@ If you are using Anaconda in Windows, using 'python3' might not work. Use 'pytho
 
 ## Docker Notes
 
-If docker is installed you can build an image and run this as a container.
-
-```
-docker build -t mysherlock-image .
-```
-
-Once the image is built, sherlock can be invoked by running the following:
-
-```
-docker run --rm -t mysherlock-image user123
-```
-
-The optional ```--rm``` flag removes the container filesystem on completion to prevent cruft build-up. See: https://docs.docker.com/engine/reference/run/#clean-up---rm
-
-The optional ```-t``` flag allocates a pseudo-TTY which allows colored output. See: https://docs.docker.com/engine/reference/run/#foreground
-
-Use the following command to access the saved results:
-
-```
-docker run --rm -t -v "$PWD/results:/opt/sherlock/results" mysherlock-image -o /opt/sherlock/results/text.txt user123
-```
-
-The ```-v "$PWD/results:/opt/sherlock/results"``` option tells docker to create (or use) the folder `results` in the
-present working directory and to mount it at `/opt/sherlock/results` on the docker container.
-The `-o /opt/sherlock/results/text.txt` option tells `sherlock` to output the result.
-
-Or you can use "Docker Hub" to run `sherlock`:
-```
-docker run theyahya/sherlock user123
-```
-
-### Using `docker-compose`
-
-You can use the `docker-compose.yml` file from the repository and use this command:
-
-```
-docker-compose run sherlock -o /opt/sherlock/results/text.txt user123
-```
-
-## Adding New Sites
-
-Please look at the Wiki entry on
-[adding new sites](https://github.com/TheYahya/sherlock/wiki/Adding-Sites-To-Sherlock)
-to understand the issues.
-
-**NOTE**: Sherlock is not accepting adult sites in the standard list.
+Docker is not currently set up to run Avail.
 
 ## Tests
 
-Thank you for contributing to Sherlock!
+Thank you for contributing to Avail!
 
 Before creating a pull request with new development, please run the tests
 to ensure that everything is working great.  It would also be a good idea to run the tests
@@ -171,16 +128,16 @@ before starting development to distinguish problems between your
 environment and the Sherlock software.
 
 The following is an example of the command line to run all the tests for
-Sherlock.  This invocation hides the progress text that Sherlock normally
+Avail. This invocation hides the progress text that Sherlock normally
 outputs, and instead shows the verbose output of the tests.
 
 ```
-$ cd sherlock/sherlock
+$ cd avail/avail
 $ python3 -m unittest tests.all --verbose
 ```
 
 Note that we do currently have 100% test coverage.  Unfortunately, some of
-the sites that Sherlock checks are not always reliable, so it is common
+the sites that Avail checks are not always reliable, so it is common
 to get response problems.  Any problems in connection will show up as
 warnings in the tests instead of true errors.
 
@@ -188,11 +145,10 @@ If some sites are failing due to connection problems (site is down, in maintenan
 you can exclude them from tests by creating a `tests/.excluded_sites` file with a
 list of sites to ignore (one site name per line).
 
-## Stargazers over time
-
-[![Stargazers over time](https://starcharts.herokuapp.com/TheYahya/sherlock.svg)](https://starcharts.herokuapp.com/TheYahya/sherlock)
 
 ## License
 
-MIT © Sherlock Project<br/>
-Original Creator - [Siddharth Dushantha](https://github.com/sdushantha)
+Licensed under the [GNU General Public License v3.0](LICENSE)
+
+Avail Creator - [Alex Blackwell](https://github.com/Alex0Blackwell)
+Original Creator of [Sherlock](https://github.com/sherlock-project/sherlock) - [Siddharth Dushantha](https://github.com/sdushantha)
