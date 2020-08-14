@@ -13,13 +13,23 @@
 * [Technologies](#technologies)
 * [Installation](#installation)
 * [Usage](#usage)
-* [Limitations](#limitations)
 
 
 ## Overview
 Finding a good username is important for an online presence. However, it is often a lot of work to know if the username you want is available. Getting a few the *That username is already taken* prompts, is enough for anyone to just add a ton of numbers after their name. **Avail** automates this process, providing a response to whether a username is available in just a few seconds!
 
 ## Examples
+
+> Test multiple usernames for availability
+
+<p align="center">
+
+<a href="https://github.com/Alex0Blackwell/avail">
+<img src="./images/avail-multi.png"/>
+</a>
+</p>
+
+> Check on multiple websites if your name is available
 
 <p align="center">
 
@@ -145,10 +155,13 @@ If some sites are failing due to connection problems (site is down, in maintenan
 you can exclude them from tests by creating a `tests/.excluded_sites` file with a
 list of sites to ignore (one site name per line).
 
+## Limitations
+- [ ] Docker not currently set up to run Avail
+
 
 ## License
 
 Licensed under the [GNU General Public License v3.0](LICENSE)
 
-Avail Creator - [Alex Blackwell](https://github.com/Alex0Blackwell)
+Avail Creator - [Alex Blackwell](https://github.com/Alex0Blackwell)  
 Original Creator of [Sherlock](https://github.com/sherlock-project/sherlock) - [Siddharth Dushantha](https://github.com/sdushantha)
